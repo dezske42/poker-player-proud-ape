@@ -49,6 +49,11 @@ namespace Nancy.Simple
                 }
 
                 bet = BetBecauseOfHighCard(card.Rank, bet);
+
+                if (bet < poker.CurrentBuyIn)
+                {
+                    bet = poker.CurrentBuyIn;
+                }
                 
             }
 
