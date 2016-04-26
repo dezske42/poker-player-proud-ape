@@ -3,6 +3,7 @@
 namespace Nancy.Simple
 {
     using System;
+    using System.Runtime.Remoting.Messaging;
 
     public static class PokerPlayer
 	{
@@ -10,23 +11,25 @@ namespace Nancy.Simple
 
 		public static int BetRequest(JObject gameState)
 		{
-		    //try
-		    //{
-      //          foreach (JProperty property in gameState.Properties())
-      //          {
-      //              if (property.Name == "players")
-      //              {
-      //                  property.Value[]
-      //              }
-      //          }           
-      //      }
-      //      catch (Exception)
-		    //{
-      //          // fallback
-		    //    return 50;
-		    //}
+            try
+            {
+                Console.WriteLine("Test logging");
 
-			return 50;
+                //foreach (JProperty property in gameState.Properties())
+                //{
+                //    if (property.Name == "players")
+                //    {
+                //        Console.WriteLine("Test logging");
+                //    }
+                //}
+            }
+            catch (Exception)
+            {
+                // fallback
+                return 50;
+            }
+
+            return 50;
 		}
 
 		public static void ShowDown(JObject gameState)
