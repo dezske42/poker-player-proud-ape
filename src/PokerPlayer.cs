@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +18,8 @@ namespace Nancy.Simple
                 var cards = poker.GetOurCards();
 
                 //return FirstVersion(gameState);
-                return SecondVersion(gameState);
+                //return SecondVersion(gameState);
+                return ThirdVersion(gameState);
             }
             catch (Exception ex)
             {
@@ -65,11 +67,35 @@ namespace Nancy.Simple
             foreach (var card in cards)
             {
                 cardsWeGet.Add(card);
-                bet = BetBecauseOfHighCard(card, bet);
+                int betToAdd = 0; 
+                if (BetBecauseOfPair(cardsWeGet, out betToAdd))
+                {
+                    bet += betToAdd;
+                }
+                else
+                {
+                    bet = BetBecauseOfHighCard(card, bet);
+                }
             }
 
 
             return bet;
+        }
+
+        private static bool BetBecauseOfPair(List<Cards> cardsWeGet, out int betToAdd)
+        {
+            betToAdd = 0;
+            var duplicateKeys = cardsWeGet.GroupBy(x => x)
+                        .Where(group => group.Count() > 1)
+                        .Select(group => group.Key);
+
+            foreach (var pair in duplicateKeys)
+            {
+                Console.WriteLine("Found pair: " + pair);
+                betToAdd += 340;
+            }
+
+            return false;
         }
 
         private static int BetBecauseOfHighCard(Cards card, int bet)
