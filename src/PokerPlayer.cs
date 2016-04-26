@@ -30,15 +30,16 @@ namespace Nancy.Simple
 
         private static int SecondVersion(JObject gameState)
         {
-            int bet = 50;
+            int bet = 100;
             Poker poker = new Poker(gameState);
             List<Cards> cards = poker.GetOurCards();
 
             Dictionary<Cards, int> betToAdd = new Dictionary<Cards, int>();
-            betToAdd.Add(Cards.Ace, 15);
-            betToAdd.Add(Cards.King, 10);
+            betToAdd.Add(Cards.Ace, 30);
+            betToAdd.Add(Cards.King, 20);
+            betToAdd.Add(Cards.Queen, 20);
+            betToAdd.Add(Cards.Jack, 20);
             
-
             foreach (var card in cards)
             {
                 if (betToAdd.ContainsKey(card))
@@ -49,6 +50,43 @@ namespace Nancy.Simple
                 }
             }
 
+            return bet;
+        }
+
+        private static int ThirdVersion(JObject gameState)
+        {
+            int bet = 100;
+            Poker poker = new Poker(gameState);
+            List<Cards> cards = poker.GetOurCards();
+           
+
+            List<Cards> cardsWeGet = new List<Cards>();
+
+            foreach (var card in cards)
+            {
+                cardsWeGet.Add(card);
+                bet = BetBecauseOfHighCard(card, bet);
+            }
+
+
+            return bet;
+        }
+
+        private static int BetBecauseOfHighCard(Cards card, int bet)
+        {
+
+            Dictionary<Cards, int> betToAdd = new Dictionary<Cards, int>();
+            betToAdd.Add(Cards.Ace, 15);
+            betToAdd.Add(Cards.King, 10);
+            betToAdd.Add(Cards.Queen, 10);
+            betToAdd.Add(Cards.Jack, 10);
+
+            if (betToAdd.ContainsKey(card))
+            {
+                Console.WriteLine("Found card" + card);
+                bet += betToAdd[card];
+                Console.WriteLine("Bet increased to" + bet);
+            }
             return bet;
         }
 
