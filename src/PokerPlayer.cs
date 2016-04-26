@@ -12,6 +12,8 @@ namespace Nancy.Simple
 		{
             try
             {
+                Poker poker = new Poker(gameState);
+
 	            Console.WriteLine("test beginn");
                 dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
 
@@ -19,11 +21,9 @@ namespace Nancy.Simple
             }
             catch (Exception)
             {
-
-                return 50;
+	            return 50;
             }
-
-
+            
             return 1;
 		}
 
@@ -32,7 +32,7 @@ namespace Nancy.Simple
 			//TODO: Use this method to showdown
 		}
 
-        private void Log(string log)
+        private static void Log(string log)
         {
             Console.WriteLine("[ProudApes] {0}", log);
         }
