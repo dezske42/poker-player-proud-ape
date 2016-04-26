@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Nancy.Simple
 {
+    using System.Diagnostics.Eventing.Reader;
+
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
@@ -119,6 +121,36 @@ namespace Nancy.Simple
                 int minimum_raise;
                 int.TryParse(stuff.minimum_raise.ToString(), out minimum_raise);
                 return minimum_raise;
+            }
+        }
+
+        public int HighestStackForActiveOtherPlayers
+        {
+            get
+            {
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                int maxStack = 0;
+
+                foreach (var player in stuff.players)
+                {
+                    if (player.name.ToString() == "Proud Ape")
+                        continue;
+
+                    if (player.status.ToString() != "active")
+                        continue;
+
+                    int stack;
+                    if (int.TryParse(player.stack.ToString(), out stack))
+                    {
+                        if (stack > maxStack)
+                        {
+                            maxStack = stack;
+                        }
+                    }
+                }
+
+                return maxStack;
             }
         }
 

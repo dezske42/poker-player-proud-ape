@@ -16,5 +16,7 @@ namespace Nancy.Simple
         int Pot { get; }
 
         int MinimumRaise { get; }
+
+        int HighestStackForActiveOtherPlayers { get; } 
     }
 }
