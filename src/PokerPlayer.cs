@@ -30,7 +30,7 @@ namespace Nancy.Simple
 	            return 50;
             }
             
-            return 1;
+            return 50;
 		}
 
 		public static void ShowDown(JObject gameState)
