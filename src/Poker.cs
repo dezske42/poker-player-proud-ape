@@ -187,7 +187,7 @@ namespace Nancy.Simple
             return cards;
         }
 
-        private dynamic GetOurPlayer()
+        public dynamic GetOurPlayer()
         {
             dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
 
