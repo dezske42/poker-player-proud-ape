@@ -152,6 +152,31 @@ namespace Nancy.Simple
             }
         }
 
+        public IList<ICards> CommunityCards
+        {
+            get
+            {
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                List<ICards> cards = new List<ICards>();
+
+                foreach (var card in stuff.community_cards)
+                {
+                    string rank = card.rank.ToString();
+                    string suit = card.suit.ToString();
+
+                    FullCard fullCard = new FullCard();
+
+                    fullCard.Rank = cardMap.ContainsKey(rank) ? cardMap[rank] : Cards.Unknown;
+                    fullCard.Suit = suitMap.ContainsKey(suit) ? suitMap[suit] : Suits.Unknown;
+
+                    cards.Add(fullCard);
+                }
+
+                return cards;
+            }
+        }
+
         private dynamic GetOurPlayer()
         {
             dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());

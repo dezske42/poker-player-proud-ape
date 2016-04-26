@@ -18,5 +18,7 @@ namespace Nancy.Simple
         int MinimumRaise { get; }
 
         int HighestStackForActiveOtherPlayers { get; } 
+
+        IList<ICards> CommunityCards { get; } 
     }
 }
