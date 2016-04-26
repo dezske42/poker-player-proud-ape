@@ -13,13 +13,11 @@ namespace Nancy.Simple
 		{
             try
             {
-                Console.WriteLine("Test logging");
-
                 //foreach (JProperty property in gameState.Properties())
                 //{
                 //    if (property.Name == "players")
                 //    {
-                //        Console.WriteLine("Test logging");
+                //        Log(property.Name);
                 //    }
                 //}
             }
@@ -36,6 +34,11 @@ namespace Nancy.Simple
 		{
 			//TODO: Use this method to showdown
 		}
+
+        private void Log(string log)
+        {
+            Console.WriteLine("[ProudApes] {0}", log);
+        }
 	}
 }
 
