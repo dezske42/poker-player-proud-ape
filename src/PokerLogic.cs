@@ -54,7 +54,7 @@ namespace Nancy.Simple
 
             int numberOfHighCards = GetNumberOffHighCards(cardsWeGet);
 
-            if ((doWeHavePair || doWeHaveSameColour) &&
+            if ((doWeHavePair || doWeHaveSameColour || numberOfHighCards >= 2) &&
                  bet < poker.CurrentBuyIn)
             {
                 bet = poker.CurrentBuyIn;
