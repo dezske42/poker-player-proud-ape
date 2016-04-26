@@ -69,18 +69,7 @@ namespace Nancy.Simple
 
             if (player != null)
             {
-                foreach (var card in player.hole_cards)
-                {
-                    string rank = card.rank.ToString();
-                    string suit = card.suit.ToString();
-
-                    FullCard fullCard = new FullCard();
-
-                    fullCard.Rank = cardMap.ContainsKey(rank) ? cardMap[rank] : Cards.Unknown;
-                    fullCard.Suit = suitMap.ContainsKey(suit) ? suitMap[suit] : Suits.Unknown;
-
-                    cards.Add(fullCard);
-                }
+                cards = CollectCards(player.hole_cards);
             }
 
             return cards;
@@ -116,9 +105,9 @@ namespace Nancy.Simple
             {
                 dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
 
-                int minimum_raise;
-                int.TryParse(stuff.minimum_raise.ToString(), out minimum_raise);
-                return minimum_raise;
+                int minimumRaise;
+                int.TryParse(stuff.minimum_raise.ToString(), out minimumRaise);
+                return minimumRaise;
             }
         }
 
@@ -158,23 +147,29 @@ namespace Nancy.Simple
             {
                 dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
 
-                List<ICards> cards = new List<ICards>();
-
-                foreach (var card in stuff.community_cards)
-                {
-                    string rank = card.rank.ToString();
-                    string suit = card.suit.ToString();
-
-                    FullCard fullCard = new FullCard();
-
-                    fullCard.Rank = cardMap.ContainsKey(rank) ? cardMap[rank] : Cards.Unknown;
-                    fullCard.Suit = suitMap.ContainsKey(suit) ? suitMap[suit] : Suits.Unknown;
-
-                    cards.Add(fullCard);
-                }
-
-                return cards;
+                return CollectCards(stuff.community_cards);
             }
+        }
+
+        private IList<ICards> CollectCards(dynamic cardList)
+        {
+            List<ICards> cards = new List<ICards>();
+
+            foreach (var card in cardList)
+            {
+                string rank = card.rank.ToString();
+                string suit = card.suit.ToString();
+
+                FullCard fullCard = new FullCard
+                                        {
+                                            Rank = cardMap.ContainsKey(rank) ? cardMap[rank] : Cards.Unknown,
+                                            Suit = suitMap.ContainsKey(suit) ? suitMap[suit] : Suits.Unknown
+                                        };
+                
+                cards.Add(fullCard);
+            }
+
+            return cards;
         }
 
         private dynamic GetOurPlayer()
