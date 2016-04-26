@@ -38,21 +38,24 @@ namespace Nancy.Simple
             {
                 Console.WriteLine("Card we get: "+ card.Rank + "/" + card.Suit);
                 cardsWeGet.Add(card);
-                int betToAdd = 0; 
-                if (BetBecauseOfPair(cardsWeGet, out betToAdd))
+                int betToAdd = 0;
+                bool doWeHavePair = BetBecauseOfPair(cardsWeGet, out betToAdd);
+                if (doWeHavePair)
                 {
                     Console.WriteLine("");
                     bet += betToAdd;
                 }
 
-                if (BetBecauseOfSameColour(cardsWeGet, out betToAdd))
+                bool doWeHaveSameColour = BetBecauseOfSameColour(cardsWeGet, out betToAdd);
+                if (doWeHaveSameColour)
                 {
                     bet += betToAdd;
                 }
 
                 bet = BetBecauseOfHighCard(card.Rank, bet);
 
-                if (bet < poker.CurrentBuyIn)
+                if ((doWeHavePair || doWeHaveSameColour )&&
+                    bet < poker.CurrentBuyIn)
                 {
                     bet = poker.CurrentBuyIn;
                 }
