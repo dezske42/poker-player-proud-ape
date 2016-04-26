@@ -36,6 +36,7 @@ namespace Nancy.Simple
 
             foreach (var card in fullcards)
             {
+                Console.WriteLine("Card we get: "+ card.Rank + "/" + card.Suit);
                 cardsWeGet.Add(card);
                 int betToAdd = 0; 
                 if (BetBecauseOfPair(cardsWeGet, out betToAdd))
@@ -81,7 +82,8 @@ namespace Nancy.Simple
         private static bool BetBecauseOfSameColour(List<ICards> cardsWeGet, out int betToAdd)
         {
             betToAdd = 0;
-            var duplicateKeys = cardsWeGet.Select(c => c.Suit).GroupBy(x => x)
+            var duplicateKeys = cardsWeGet.Select(c => c.Suit)
+                .GroupBy(x => x)
                 .Where(group => @group.Count() > 1)
                 .Select(group => @group.Key);
 
