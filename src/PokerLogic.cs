@@ -73,8 +73,7 @@ namespace Nancy.Simple
                 bet += HighPairBetAdded;
             }
 
-            if ((doWeHavePair  || numberOfHighCards >= 2) &&
-                bet < poker.CurrentBuyIn)
+            if (doWeHavePair && bet < poker.CurrentBuyIn)
             {
                 bet = poker.CurrentBuyIn;
             }

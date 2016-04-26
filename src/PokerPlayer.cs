@@ -10,6 +10,8 @@ namespace Nancy.Simple
 	{
 		public static readonly string VERSION = "Default C# folding player";
 
+        private static PokerLogic pokerRound;
+
 		public static int BetRequest(JObject gameState)
 		{
             try
@@ -17,7 +19,11 @@ namespace Nancy.Simple
                 //return FirstVersion(gameState);
                 //return SecondVersion(gameState);
                 Poker poker = new Poker(gameState);
-                var pokerRound = new PokerLogic(poker);
+
+                if (pokerRound == null || pokerRound.GameId.Equals(poker.GameId) == false)
+                {
+                    pokerRound = new PokerLogic(poker);
+                }
                 return pokerRound.Play(gameState);
             }
             catch (Exception ex)
