@@ -16,7 +16,7 @@ namespace Nancy.Simple
         public PokerLogic()
         {
 
-            double factor = 1.1;
+            double factor = 1.3;
             HighPairBetAdded = (int)(100 * factor);
             BettToAddBecauseOfPair = (int)(500 * factor);
             BaseBet = (int) (100 * factor);
@@ -34,6 +34,14 @@ namespace Nancy.Simple
             int bet = BaseBet;
             Poker poker = new Poker(gameState);
             List<Cards> cards = poker.GetOurCards();
+            bet = NoCommunityCardsSeen(poker, bet);
+
+
+            return bet;
+        }
+
+        private int NoCommunityCardsSeen(Poker poker, int bet)
+        {
             List<ICards> fullcards = poker.GetOurFullCards();
 
 
@@ -69,15 +77,12 @@ namespace Nancy.Simple
             }
 
             if ((doWeHavePair || doWeHaveSameColour || numberOfHighCards >= 2) &&
-                 bet < poker.CurrentBuyIn)
+                bet < poker.CurrentBuyIn)
             {
                 bet = poker.CurrentBuyIn;
             }
 
             bet = DoBluffing(bet);
-
-
-
             return bet;
         }
 
