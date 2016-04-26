@@ -211,6 +211,20 @@ namespace Nancy.Simple
             }
         }
 
+        public int RankId
+        {
+            get
+            {
+                var rankingObj = GetRanking();
+
+                dynamic stuff = JsonConvert.DeserializeObject(rankingObj.ToString());
+
+                int rank;
+                int.TryParse(stuff.rank.ToString(), out rank);
+                return rank;
+            }
+        }
+
         private IList<ICards> CollectCards(dynamic cardList)
         {
             List<ICards> cards = new List<ICards>();

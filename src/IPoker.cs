@@ -29,5 +29,7 @@ namespace Nancy.Simple
         string GameId { get; }
 
         string AllCardsJSon { get; }
+
+        int RankId { get; }
     }
 }
