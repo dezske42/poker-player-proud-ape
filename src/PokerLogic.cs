@@ -56,12 +56,8 @@ namespace Nancy.Simple
                 bet += betToAdd;
             }
 
-            bool doWeHaveSameColour = BetBecauseOfSameColour(cardsWeGet, out betToAdd);
-            if (doWeHaveSameColour)
-            {
-                Console.WriteLine("We have color");
-                bet += betToAdd;
-            }
+            //bool doWeHaveSameColour = BetBecauseOfSameColour(cardsWeGet, out betToAdd);
+            
 
             bet = BetBecauseOfHighCard(cardsWeGet, bet);
 
@@ -75,7 +71,7 @@ namespace Nancy.Simple
                 bet += HighPairBetAdded;
             }
 
-            if ((doWeHavePair || doWeHaveSameColour || numberOfHighCards >= 2) &&
+            if ((doWeHavePair  || numberOfHighCards >= 2) &&
                 bet < poker.CurrentBuyIn)
             {
                 bet = poker.CurrentBuyIn;
