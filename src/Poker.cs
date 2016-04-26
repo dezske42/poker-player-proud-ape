@@ -164,7 +164,13 @@ namespace Nancy.Simple
             }
         }
 
-        public bool CommunityMode => CommunityCards.Count != 0;
+        public bool CommunityMode
+        {
+            get
+            {
+                return CommunityCards.Count != 0;
+            }
+        }
 
         private IList<ICards> CollectCards(dynamic cardList)
         {
