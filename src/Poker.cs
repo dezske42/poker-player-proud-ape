@@ -172,6 +172,16 @@ namespace Nancy.Simple
             }
         }
 
+        public string GameId
+        {
+            get
+            {
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                return stuff.game_id.ToString();
+            }
+        }
+
         public string AllCardsJSon
         {
             get

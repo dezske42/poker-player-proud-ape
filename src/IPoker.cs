@@ -26,6 +26,8 @@ namespace Nancy.Simple
 
         bool CommunityMode { get; }
 
+        string GameId { get; }
+
         string AllCardsJSon { get; }
     }
 }
