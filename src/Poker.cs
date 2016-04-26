@@ -8,9 +8,34 @@ namespace Nancy.Simple
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
-    class Poker : IPoker
+    public class Poker : IPoker
     {
-        private JObject GameState;
+        private Dictionary<string, Cards> cardMap = new Dictionary<string, Cards>()
+                                                        {
+                                                            { "A", Cards.Ace },
+                                                            { "K", Cards.King },
+                                                            { "J", Cards.Jack },
+                                                            { "Q", Cards.Queen },
+                                                            { "2", Cards.N2 },
+                                                            { "3", Cards.N3 },
+                                                            { "4", Cards.N4 },
+                                                            { "5", Cards.N5 },
+                                                            { "6", Cards.N6 },
+                                                            { "7", Cards.N7 },
+                                                            { "8", Cards.N8 },
+                                                            { "9", Cards.N9 },
+                                                            { "10", Cards.N10 },
+                                                        };
+
+        private Dictionary<string, Suits> suitMap = new Dictionary<string, Suits>()
+                                                        {
+                                                            { "hearts", Suits.Hearts },
+                                                            { "spades", Suits.Spades },
+                                                            { "clubs", Suits.Clubs },
+                                                            { "diamonds", Suits.Diamonds },
+                                                        };
+
+        private readonly JObject GameState;
 
         public Poker(JObject gameState)
         {
@@ -21,79 +46,71 @@ namespace Nancy.Simple
         {
             List<Cards> cards = new List<Cards>();
 
+            dynamic player = GetOurPlayer();
+
+            if (player != null)
+            {
+                foreach (var card in player.hole_cards)
+                {
+                    string rank = card.rank.ToString();
+
+                    cards.Add(cardMap.ContainsKey(rank) ? cardMap[rank] : Cards.Unknown);
+                }
+            }
+
+            return cards;
+        }
+
+        public List<ICards> GetOurFullCards()
+        {
+            List<ICards> cards = new List<ICards>();
+
+            dynamic player = GetOurPlayer();
+
+            if (player != null)
+            {
+                foreach (var card in player.hole_cards)
+                {
+                    string rank = card.rank.ToString();
+                    string suit = card.suit.ToString();
+
+                    FullCard fullCard = new FullCard();
+
+                    fullCard.Rank = cardMap.ContainsKey(rank) ? cardMap[rank] : Cards.Unknown;
+                    fullCard.Suit = suitMap.ContainsKey(suit) ? suitMap[suit] : Suits.Unknown;
+
+                    cards.Add(fullCard);
+                }
+            }
+
+            return cards;
+        }
+
+        public int CurrentBuyIn
+        {
+            get
+            {
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                int buyIn;
+                int.TryParse(stuff.current_buy_in.ToString(), out buyIn);            
+                return buyIn;
+            }
+        }
+
+        private dynamic GetOurPlayer()
+        {
             dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
 
             foreach (var player in stuff.players)
             {
                 if (player.name.ToString() == "Proud Ape")
                 {
-                    foreach (var card in player.hole_cards)
-                    {
-                        string rank = card.rank.ToString();
-
-                        PokerPlayer.Log("Card: " + rank);
-
-                        if (rank == "A")
-                        {
-                            cards.Add(Cards.Ace);
-                        }
-                        else if (rank == "K")
-                        {
-                            cards.Add(Cards.King);
-                        }
-                        else if (rank == "J")
-                        {
-                            cards.Add(Cards.Jack);
-                        }
-                        else if (rank == "Q")
-                        {
-                            cards.Add(Cards.Queen);
-                        }
-                        else if (rank == "2")
-                        {
-                            cards.Add(Cards.N2);
-                        }
-                        else if (rank == "3")
-                        {
-                            cards.Add(Cards.N3);
-                        }
-                        else if (rank == "4")
-                        {
-                            cards.Add(Cards.N4);
-                        }
-                        else if (rank == "5")
-                        {
-                            cards.Add(Cards.N5);
-                        }
-                        else if (rank == "6")
-                        {
-                            cards.Add(Cards.N6);
-                        }
-                        else if (rank == "7")
-                        {
-                            cards.Add(Cards.N7);
-                        }
-                        else if (rank == "8")
-                        {
-                            cards.Add(Cards.N8);
-                        }
-                        else if (rank == "9")
-                        {
-                            cards.Add(Cards.N9);
-                        }
-                        else if (rank == "10")
-                        {
-                            cards.Add(Cards.N10);
-                        }
-                        else
-                        {
-                            cards.Add(Cards.Unknown);
-                        }
-                    }
+                    return player;
                 }
             }
 
-            return cards;
+            return null;
         }
     }
 }

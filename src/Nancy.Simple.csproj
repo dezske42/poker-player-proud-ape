@@ -70,12 +70,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards.cs" />
+    <Compile Include="FullCard.cs" />
+    <Compile Include="ICards.cs" />
     <Compile Include="IPoker.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Poker.cs" />
     <Compile Include="PokerLogic.cs" />
     <Compile Include="PokerPlayer.cs" />
+    <Compile Include="Suits.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
