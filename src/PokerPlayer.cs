@@ -19,9 +19,8 @@ namespace Nancy.Simple
             }
             catch (Exception)
 	        {
-	            
-	            throw;
-	        }
+	            Console.WriteLine("Exception");
+	                }
 
 
             return 1;
