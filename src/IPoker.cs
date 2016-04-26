@@ -14,6 +14,6 @@ namespace Nancy.Simple
 
     interface IPoker
     {
-
+        List<Cards> GetOurCards();
     }
 }

@@ -9,9 +9,15 @@ namespace Nancy.Simple
 
     class Poker : IPoker
     {
+        private JObject GameState;
+
         public Poker(JObject gameState)
         {
-            
+            GameState = gameState;
+        }
+        public List<Cards> GetOurCards()
+        {
+            return new List<Cards>();
         }
     }
 }
