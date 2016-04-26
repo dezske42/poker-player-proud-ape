@@ -56,6 +56,10 @@ namespace Nancy.Simple
         private int UseRankingServiceForBet()
         {
             int ranking = poker.RankId;
+            if (ranking == 2 || ranking == 3)
+            {
+                return BaseBet*5;
+            }
 
             if (ranking >= 4)
             {
