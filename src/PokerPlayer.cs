@@ -2,13 +2,30 @@
 
 namespace Nancy.Simple
 {
-	public static class PokerPlayer
+    using System;
+
+    public static class PokerPlayer
 	{
 		public static readonly string VERSION = "Default C# folding player";
 
 		public static int BetRequest(JObject gameState)
 		{
-			//TODO: Use this method to return the value You want to bet
+		    //try
+		    //{
+      //          foreach (JProperty property in gameState.Properties())
+      //          {
+      //              if (property.Name == "players")
+      //              {
+      //                  property.Value[]
+      //              }
+      //          }           
+      //      }
+      //      catch (Exception)
+		    //{
+      //          // fallback
+		    //    return 50;
+		    //}
+
 			return 50;
 		}
 
