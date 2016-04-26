@@ -110,6 +110,18 @@ namespace Nancy.Simple
             }
         }
 
+        public int MinimumRaise
+        {
+            get
+            {
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                int minimum_raise;
+                int.TryParse(stuff.minimum_raise.ToString(), out minimum_raise);
+                return minimum_raise;
+            }
+        }
+
         private dynamic GetOurPlayer()
         {
             dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());

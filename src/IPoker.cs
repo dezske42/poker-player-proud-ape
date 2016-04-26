@@ -14,5 +14,7 @@ namespace Nancy.Simple
         int CurrentBuyIn { get; }
 
         int Pot { get; }
+
+        int MinimumRaise { get; }
     }
 }
