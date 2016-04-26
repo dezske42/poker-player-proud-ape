@@ -8,7 +8,7 @@ namespace Nancy.Simple
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
-    class Poker : IPoker
+    public class Poker : IPoker
     {
         private JObject GameState;
 
