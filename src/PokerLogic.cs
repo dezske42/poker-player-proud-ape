@@ -8,6 +8,7 @@ namespace Nancy.Simple
     public class PokerLogic
     {
         private Dictionary<Cards, int> betToAdd;
+        private const int HighPairBetAdded = 100;
         private const int BettToAddBecauseOfPair = 500;
         private const int BaseBet = 100;
         
@@ -56,6 +57,12 @@ namespace Nancy.Simple
             int numberOfHighCards = GetNumberOffHighCards(cardsWeGet);
 
             Console.WriteLine("Number of high cards: " + numberOfHighCards);
+
+            if (doWeHavePair && numberOfHighCards >= 2)
+            {
+                Console.WriteLine("We have a high pair");
+                bet += HighPairBetAdded;
+            }
 
             if ((doWeHavePair || doWeHaveSameColour || numberOfHighCards >= 2) &&
                  bet < poker.CurrentBuyIn)
