@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Nancy.Simple
 {
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
     class Poker : IPoker
@@ -15,8 +16,16 @@ namespace Nancy.Simple
         {
             GameState = gameState;
         }
+
         public List<Cards> GetOurCards()
         {
+            dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+            foreach (var player in stuff.players)
+            {
+                PokerPlayer.Log(player.name);
+            }
+
             return new List<Cards>();
         }
     }

@@ -38,9 +38,9 @@ namespace Nancy.Simple
 			//TODO: Use this method to showdown
 		}
 
-        private static void Log(string log)
+        public static void Log(string log)
         {
-            Console.WriteLine("[ProudApes] {0}", log);
+            Console.WriteLine("[ProudApes] " + log);
         }
 	}
 }
