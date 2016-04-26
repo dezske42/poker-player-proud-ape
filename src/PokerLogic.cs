@@ -20,6 +20,7 @@ namespace Nancy.Simple
             betToAdd.Add(Cards.King, 100);
             betToAdd.Add(Cards.Queen, 100);
             betToAdd.Add(Cards.Jack, 100);
+            betToAdd.Add(Cards.N10, 60);
         }
        
 
