@@ -5,8 +5,6 @@ using System.Text;
 
 namespace Nancy.Simple
 {
-    using System.Diagnostics.Eventing.Reader;
-
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
