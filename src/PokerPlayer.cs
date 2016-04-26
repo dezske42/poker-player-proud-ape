@@ -13,6 +13,7 @@ namespace Nancy.Simple
             try
             {
                 Poker poker = new Poker(gameState);
+                var cards = poker.GetOurCards();
 
 	            Log("Test begin");
                 dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());

@@ -19,14 +19,33 @@ namespace Nancy.Simple
 
         public List<Cards> GetOurCards()
         {
+            List<Cards> cards = new List<Cards>();
+
             dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
 
             foreach (var player in stuff.players)
             {
-                PokerPlayer.Log(player.name);
+                if (player.name.ToString() == "Proud Ape")
+                {
+                    foreach (var card in player.hole_cards)
+                    {
+                        string rank = card.rank.ToString();
+
+                        PokerPlayer.Log("Card: " + rank);
+
+                        if (rank == "A")
+                        {
+                            cards.Add(Cards.Ace);
+                        }
+                        else if (rank == "K")
+                        {
+                            cards.Add(Cards.King);
+                        }
+                    }
+                }
             }
 
-            return new List<Cards>();
+            return cards;
         }
     }
 }
