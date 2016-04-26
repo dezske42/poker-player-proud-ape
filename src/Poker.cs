@@ -151,6 +151,19 @@ namespace Nancy.Simple
             }
         }
 
+        public IList<ICards> GetOurCardsWithCommunityCards
+        {
+            get
+            {
+                List<ICards> allCards = new List<ICards>();
+
+                allCards.AddRange(GetOurFullCards());
+                allCards.AddRange(CommunityCards);
+
+                return allCards;
+            }
+        }
+
         private IList<ICards> CollectCards(dynamic cardList)
         {
             List<ICards> cards = new List<ICards>();

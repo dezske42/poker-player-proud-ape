@@ -14,9 +14,6 @@ namespace Nancy.Simple
 		{
             try
             {
-                Poker poker = new Poker(gameState);
-                var cards = poker.GetOurCards();
-
                 //return FirstVersion(gameState);
                 //return SecondVersion(gameState);
                 return new PokerLogic().Play(gameState);

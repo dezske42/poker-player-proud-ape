@@ -7,6 +7,7 @@ namespace Nancy.Simple
 {
     public interface IPoker
     {
+        [Obsolete]
         List<Cards> GetOurCards();
 
         List<ICards> GetOurFullCards();
@@ -20,5 +21,7 @@ namespace Nancy.Simple
         int HighestStackForActiveOtherPlayers { get; } 
 
         IList<ICards> CommunityCards { get; } 
+
+        IList<ICards> GetOurCardsWithCommunityCards { get; } 
     }
 }
