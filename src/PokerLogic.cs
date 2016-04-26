@@ -39,13 +39,32 @@ namespace Nancy.Simple
         {
             int bet = BaseBet;
             List<Cards> cards = poker.GetOurCards();
-            bet = NoCommunityCardsSeen(poker, bet);
+
+            if (poker.CommunityMode)
+            {
+                bet = UseRankingServiceForBet();
+            }
+            else
+            {
+                bet = NoCommunityCardsSeen(bet);
+            }
 
 
             return bet;
         }
 
-        private int NoCommunityCardsSeen(Poker poker, int bet)
+        private int UseRankingServiceForBet()
+        {
+            int ranking = poker.RankId;
+
+            if (ranking >= 4)
+            {
+                return 5000;
+            }
+            return BaseBet;
+        }
+
+        private int NoCommunityCardsSeen(int bet)
         {
             List<ICards> fullcards = poker.GetOurFullCards();
             List<ICards> cardsWeGet = fullcards.ToList();
