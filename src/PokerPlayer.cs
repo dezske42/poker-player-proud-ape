@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Nancy.Simple
 {
@@ -6,10 +8,22 @@ namespace Nancy.Simple
 	{
 		public static readonly string VERSION = "Default C# folding player";
 
-		public static int BetRequest(JObject gameState)
-		{
-			//TODO: Use this method to return the value You want to bet
-			return 1;
+	    public static int BetRequest(JObject gameState)
+	    {
+	        try
+	        {
+                dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
+
+	            Console.WriteLine("Test: " + stuff.tournament_id);
+            }
+            catch (Exception)
+	        {
+	            
+	            throw;
+	        }
+
+
+            return 1;
 		}
 
 		public static void ShowDown(JObject gameState)
