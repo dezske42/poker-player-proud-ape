@@ -14,15 +14,8 @@ namespace Nancy.Simple
             {
                 Poker poker = new Poker(gameState);
 
-	            Log("Test begin");
-                dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
-
-                foreach (var player in stuff.players)
-                {
-                    Log(player.name);
-                }
-
-                Log("Test end");
+                return FirstVersion(gameState);
+                //SecondVersion(gameState);
             }
             catch (Exception ex)
             {
@@ -30,10 +23,33 @@ namespace Nancy.Simple
 	            return 50;
             }
             
-            return 50;
+            
 		}
 
-		public static void ShowDown(JObject gameState)
+        private static int SecondVersion(JObject gameState)
+        {
+            Poker poker = new Poker(gameState);
+
+
+            return 50;
+        }
+
+        private static int FirstVersion(JObject gameState)
+        {
+            Log("Test begin");
+            dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
+
+            foreach (var player in stuff.players)
+            {
+                Log(player.name);
+            }
+
+            Log("Test end");
+            return 50;
+        }
+
+
+        public static void ShowDown(JObject gameState)
 		{
 			//TODO: Use this method to showdown
 		}
