@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
+using System.IO;
 
 namespace Nancy.Simple
 {
@@ -243,6 +245,19 @@ namespace Nancy.Simple
             }
 
             return null;
+        }
+
+        public JObject GetRanking()
+        {
+            System.Net.WebRequest request;
+            request = WebRequest.Create("http://rainman.leanpoker.org/rank?cards=" + AllCardsJSon);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream resStream = response.GetResponseStream();
+            StreamReader resStreamReader = new StreamReader(resStream);
+            String streamString = resStreamReader.ReadToEnd();
+            Console.WriteLine(streamString);
+            JObject rankingObj = JObject.Parse(streamString);
+            return rankingObj;
         }
     }
 }

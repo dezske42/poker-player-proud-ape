@@ -28,6 +28,8 @@ namespace Nancy.Simple
             StreamReader resStreamReader = new StreamReader(resStream);
             String streamString = resStreamReader.ReadToEnd();
             Console.WriteLine(streamString);
+            JObject rankingObj = JObject.Parse(streamString);
+            Console.WriteLine(rankingObj.GetValue("kickers"));
             Console.Read();
         }
     }
