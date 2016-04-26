@@ -16,7 +16,7 @@ namespace Nancy.Simple
         public PokerLogic()
         {
 
-            double factor = 0.8;
+            double factor = 1.1;
             HighPairBetAdded = (int)(100 * factor);
             BettToAddBecauseOfPair = (int)(500 * factor);
             BaseBet = (int) (100 * factor);
