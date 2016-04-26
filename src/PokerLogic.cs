@@ -8,7 +8,7 @@ namespace Nancy.Simple
     public class PokerLogic
     {
         private Dictionary<Cards, int> betToAdd;
-        private const int BettToAddBecauseOfPair = 300;
+        private const int BettToAddBecauseOfPair = 500;
         private const int BaseBet = 100;
         
 
@@ -16,10 +16,10 @@ namespace Nancy.Simple
         {
         
             betToAdd = new Dictionary<Cards, int>();
-            betToAdd.Add(Cards.Ace, 15);
-            betToAdd.Add(Cards.King, 10);
-            betToAdd.Add(Cards.Queen, 10);
-            betToAdd.Add(Cards.Jack, 10);
+            betToAdd.Add(Cards.Ace, 150);
+            betToAdd.Add(Cards.King, 100);
+            betToAdd.Add(Cards.Queen, 100);
+            betToAdd.Add(Cards.Jack, 100);
         }
 
 
@@ -69,8 +69,6 @@ namespace Nancy.Simple
 
         private int BetBecauseOfHighCard(Cards card, int bet)
         {
-
-           
             if (betToAdd.ContainsKey(card))
             {
                 Console.WriteLine("Found card" + card);
