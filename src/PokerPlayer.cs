@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,8 +16,8 @@ namespace Nancy.Simple
                 Poker poker = new Poker(gameState);
                 var cards = poker.GetOurCards();
 
-                return FirstVersion(gameState);
-                //SecondVersion(gameState);
+                //return FirstVersion(gameState);
+                return SecondVersion(gameState);
             }
             catch (Exception ex)
             {
@@ -29,10 +30,26 @@ namespace Nancy.Simple
 
         private static int SecondVersion(JObject gameState)
         {
+            int bet = 50;
             Poker poker = new Poker(gameState);
+            List<Cards> cards = poker.GetOurCards();
 
+            Dictionary<Cards, int> betToAdd = new Dictionary<Cards, int>();
+            betToAdd.Add(Cards.Ace, 15);
+            betToAdd.Add(Cards.King, 10);
+            
 
-            return 50;
+            foreach (var card in cards)
+            {
+                if (betToAdd.ContainsKey(card))
+                {
+                    Console.WriteLine("Found card" + card);
+                    bet += betToAdd[card];
+                    Console.WriteLine("Bet increased to" + bet);
+                }
+            }
+
+            return bet;
         }
 
         private static int FirstVersion(JObject gameState)
