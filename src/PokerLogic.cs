@@ -8,15 +8,18 @@ namespace Nancy.Simple
     public class PokerLogic
     {
         private Dictionary<Cards, int> betToAdd;
-        private const int HighPairBetAdded = 80;
-        private const int BettToAddBecauseOfPair = 420;
-        private const int BaseBet = 80;
+        private readonly int HighPairBetAdded;
+        private readonly int BettToAddBecauseOfPair;
+        private readonly int BaseBet;
         
 
         public PokerLogic()
         {
 
             double factor = 0.8;
+            HighPairBetAdded = (int)(100 * factor);
+            BettToAddBecauseOfPair = (int)(500 * factor);
+            BaseBet = (int) (100 * factor);
             betToAdd = new Dictionary<Cards, int>();
             betToAdd.Add(Cards.Ace, (int)(150 *factor));
             betToAdd.Add(Cards.King, (int)(100 * factor));
@@ -103,7 +106,7 @@ namespace Nancy.Simple
             return betToReturn;
         }
 
-        private static bool BetBecauseOfPair(List<ICards> cardsWeGet, out int betToAdd)
+        private bool BetBecauseOfPair(List<ICards> cardsWeGet, out int betToAdd)
         {
             bool found = false;
             betToAdd = 0;
@@ -122,7 +125,7 @@ namespace Nancy.Simple
             return found;
         }
 
-        private static bool BetBecauseOfSameColour(List<ICards> cardsWeGet, out int betToAdd)
+        private bool BetBecauseOfSameColour(List<ICards> cardsWeGet, out int betToAdd)
         {
             bool found = false;
             betToAdd = 0;
