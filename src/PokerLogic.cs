@@ -8,8 +8,8 @@ namespace Nancy.Simple
     public class PokerLogic
     {
         private Dictionary<Cards, int> betToAdd;
-        private const int HighPairBetAdded = 100;
-        private const int BettToAddBecauseOfPair = 500;
+        private const int HighPairBetAdded = 80;
+        private const int BettToAddBecauseOfPair = 420;
         private const int BaseBet = 100;
         
 
