@@ -40,19 +40,22 @@ namespace Nancy.Simple
             bool doWeHavePair = BetBecauseOfPair(cardsWeGet, out betToAdd);
             if (doWeHavePair)
             {
-                Console.WriteLine("");
+                Console.WriteLine("We have pair");
                 bet += betToAdd;
             }
 
             bool doWeHaveSameColour = BetBecauseOfSameColour(cardsWeGet, out betToAdd);
             if (doWeHaveSameColour)
             {
+                Console.WriteLine("We have color");
                 bet += betToAdd;
             }
 
             bet = BetBecauseOfHighCard(cardsWeGet, bet);
 
             int numberOfHighCards = GetNumberOffHighCards(cardsWeGet);
+
+            Console.WriteLine("Number of high cards: " + numberOfHighCards);
 
             if ((doWeHavePair || doWeHaveSameColour || numberOfHighCards >= 2) &&
                  bet < poker.CurrentBuyIn)
