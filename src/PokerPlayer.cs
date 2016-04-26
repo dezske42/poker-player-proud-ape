@@ -17,10 +17,14 @@ namespace Nancy.Simple
 	            Console.WriteLine("test beginn");
                 dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
 
-	            Console.WriteLine("Test: " + stuff.tournament_id);
+                foreach (var player in stuff.players)
+                {
+                    Log(player.name);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log("Exception " + ex.Message);
 	            return 50;
             }
             
