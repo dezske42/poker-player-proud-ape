@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using Newtonsoft.Json.Linq;
 
 namespace Nancy.Simple
@@ -13,12 +14,13 @@ namespace Nancy.Simple
         private readonly int BettToAddBecauseOfPair;
         private readonly int BaseBet;
         
+        public string GameId { get; private set; }
 
         public PokerLogic(Poker poker)
         {
             this.poker = poker;
-
-            double factor = 1.0;
+            GameId = poker.GameId;
+            double factor = 0.6;
             HighPairBetAdded = (int)(100 * factor);
             BettToAddBecauseOfPair = (int)(500 * factor);
             BaseBet = (int) (100 * factor);

@@ -17,7 +17,8 @@ namespace Nancy.Simple
                 //return FirstVersion(gameState);
                 //return SecondVersion(gameState);
                 Poker poker = new Poker(gameState);
-                return new PokerLogic(poker).Play(gameState);
+                var pokerRound = new PokerLogic(poker);
+                return pokerRound.Play(gameState);
             }
             catch (Exception ex)
             {
