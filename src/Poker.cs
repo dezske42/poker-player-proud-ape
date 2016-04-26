@@ -164,6 +164,8 @@ namespace Nancy.Simple
             }
         }
 
+        public bool CommunityMode => CommunityCards.Count != 0;
+
         private IList<ICards> CollectCards(dynamic cardList)
         {
             List<ICards> cards = new List<ICards>();

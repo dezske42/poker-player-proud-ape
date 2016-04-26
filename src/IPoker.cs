@@ -23,5 +23,7 @@ namespace Nancy.Simple
         IList<ICards> CommunityCards { get; } 
 
         IList<ICards> GetOurCardsWithCommunityCards { get; } 
+
+        bool CommunityMode { get; }
     }
 }
