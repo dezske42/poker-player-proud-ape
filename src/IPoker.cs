@@ -12,5 +12,7 @@ namespace Nancy.Simple
         List<ICards> GetOurFullCards();
 
         int CurrentBuyIn { get; }
+
+        int Pot { get; }
     }
 }

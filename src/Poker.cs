@@ -98,6 +98,18 @@ namespace Nancy.Simple
             }
         }
 
+        public int Pot
+        {
+            get
+            {
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                int pot;
+                int.TryParse(stuff.pot.ToString(), out pot);
+                return pot;
+            }
+        }
+
         private dynamic GetOurPlayer()
         {
             dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
