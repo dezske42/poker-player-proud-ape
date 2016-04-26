@@ -7,16 +7,18 @@ namespace Nancy.Simple
 {
     public class PokerLogic
     {
+        private readonly Poker poker;
         private Dictionary<Cards, int> betToAdd;
         private readonly int HighPairBetAdded;
         private readonly int BettToAddBecauseOfPair;
         private readonly int BaseBet;
         
 
-        public PokerLogic()
+        public PokerLogic(Poker poker)
         {
+            this.poker = poker;
 
-            double factor = 1.3;
+            double factor = 1.0;
             HighPairBetAdded = (int)(100 * factor);
             BettToAddBecauseOfPair = (int)(500 * factor);
             BaseBet = (int) (100 * factor);
@@ -32,7 +34,6 @@ namespace Nancy.Simple
         public int Play(JObject gameState)
         {
             int bet = BaseBet;
-            Poker poker = new Poker(gameState);
             List<Cards> cards = poker.GetOurCards();
             bet = NoCommunityCardsSeen(poker, bet);
 
@@ -43,8 +44,6 @@ namespace Nancy.Simple
         private int NoCommunityCardsSeen(Poker poker, int bet)
         {
             List<ICards> fullcards = poker.GetOurFullCards();
-
-
             List<ICards> cardsWeGet = fullcards.ToList();
             PrintCards(fullcards);
 
