@@ -41,6 +41,7 @@ namespace Nancy.Simple
                 int betToAdd = 0; 
                 if (BetBecauseOfPair(cardsWeGet, out betToAdd))
                 {
+                    Console.WriteLine("");
                     bet += betToAdd;
                 }
 
@@ -82,6 +83,7 @@ namespace Nancy.Simple
 
         private static bool BetBecauseOfPair(List<ICards> cardsWeGet, out int betToAdd)
         {
+            bool found = false;
             betToAdd = 0;
             var duplicateKeys = cardsWeGet.Select(card => card.Rank)
                 .GroupBy(x => x)
@@ -92,13 +94,15 @@ namespace Nancy.Simple
             {
                 Console.WriteLine("Found pair: " + pair);
                 betToAdd += BettToAddBecauseOfPair;
+                found = true;
             }
 
-            return false;
+            return found;
         }
 
         private static bool BetBecauseOfSameColour(List<ICards> cardsWeGet, out int betToAdd)
         {
+            bool found = false;
             betToAdd = 0;
             var duplicateKeys = cardsWeGet.Select(c => c.Suit)
                 .GroupBy(x => x)
@@ -109,9 +113,10 @@ namespace Nancy.Simple
             {
                 Console.WriteLine("Found colour: " + pair);
                 betToAdd += BettToAddBecauseOfPair;
+                found = true;
             }
 
-            return false;
+            return found;
         }
 
 
