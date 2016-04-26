@@ -10,18 +10,19 @@ namespace Nancy.Simple
         private Dictionary<Cards, int> betToAdd;
         private const int HighPairBetAdded = 80;
         private const int BettToAddBecauseOfPair = 420;
-        private const int BaseBet = 100;
+        private const int BaseBet = 80;
         
 
         public PokerLogic()
         {
-        
+
+            double factor = 0.8;
             betToAdd = new Dictionary<Cards, int>();
-            betToAdd.Add(Cards.Ace, 150);
-            betToAdd.Add(Cards.King, 100);
-            betToAdd.Add(Cards.Queen, 100);
-            betToAdd.Add(Cards.Jack, 100);
-            betToAdd.Add(Cards.N10, 60);
+            betToAdd.Add(Cards.Ace, (int)(150 *factor));
+            betToAdd.Add(Cards.King, (int)(100 * factor));
+            betToAdd.Add(Cards.Queen, (int)(100 * factor));
+            betToAdd.Add(Cards.Jack, (int)(100 * factor));
+            betToAdd.Add(Cards.N10, (int)(60 * factor));
         }
        
 
