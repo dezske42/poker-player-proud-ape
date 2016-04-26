@@ -29,11 +29,12 @@ namespace Nancy.Simple
             int bet = BaseBet;
             Poker poker = new Poker(gameState);
             List<Cards> cards = poker.GetOurCards();
+            List<ICards> fullcards = poker.GetOurFullCards();
            
 
-            List<Cards> cardsWeGet = new List<Cards>();
+            List<ICards> cardsWeGet = new List<ICards>();
 
-            foreach (var card in cards)
+            foreach (var card in fullcards)
             {
                 cardsWeGet.Add(card);
                 int betToAdd = 0; 
@@ -41,20 +42,25 @@ namespace Nancy.Simple
                 {
                     bet += betToAdd;
                 }
-                else
+
+                if (BetBecauseOfSameColour(cardsWeGet, out betToAdd))
                 {
-                    bet = BetBecauseOfHighCard(card, bet);
+                    bet += betToAdd;
                 }
+
+                bet = BetBecauseOfHighCard(card.Rank, bet);
+                
             }
 
 
             return bet;
         }
 
-        private static bool BetBecauseOfPair(List<Cards> cardsWeGet, out int betToAdd)
+        private static bool BetBecauseOfPair(List<ICards> cardsWeGet, out int betToAdd)
         {
             betToAdd = 0;
-            var duplicateKeys = cardsWeGet.GroupBy(x => x)
+            var duplicateKeys = cardsWeGet.Select(card => card.Rank)
+                .GroupBy(x => x)
                 .Where(group => @group.Count() > 1)
                 .Select(group => @group.Key);
 
@@ -67,6 +73,23 @@ namespace Nancy.Simple
             return false;
         }
 
+        private static bool BetBecauseOfSameColour(List<ICards> cardsWeGet, out int betToAdd)
+        {
+            betToAdd = 0;
+            var duplicateKeys = cardsWeGet.Select(c => c.Suit).GroupBy(x => x)
+                .Where(group => @group.Count() > 1)
+                .Select(group => @group.Key);
+
+            foreach (var pair in duplicateKeys)
+            {
+                Console.WriteLine("Found colour: " + pair);
+                betToAdd += BettToAddBecauseOfPair;
+            }
+
+            return false;
+        }
+
+
         private int BetBecauseOfHighCard(Cards card, int bet)
         {
             if (betToAdd.ContainsKey(card))
@@ -77,5 +100,7 @@ namespace Nancy.Simple
             }
             return bet;
         }
+
+
     }
 }
