@@ -30,41 +30,49 @@ namespace Nancy.Simple
             Poker poker = new Poker(gameState);
             List<Cards> cards = poker.GetOurCards();
             List<ICards> fullcards = poker.GetOurFullCards();
-           
 
-            List<ICards> cardsWeGet = new List<ICards>();
 
-            foreach (var card in fullcards)
+            List<ICards> cardsWeGet = fullcards.ToList();
+            PrintCards(fullcards);
+
+
+            int betToAdd = 0;
+            bool doWeHavePair = BetBecauseOfPair(cardsWeGet, out betToAdd);
+            if (doWeHavePair)
             {
-                Console.WriteLine("Card we get: "+ card.Rank + "/" + card.Suit);
-                cardsWeGet.Add(card);
-                int betToAdd = 0;
-                bool doWeHavePair = BetBecauseOfPair(cardsWeGet, out betToAdd);
-                if (doWeHavePair)
-                {
-                    Console.WriteLine("");
-                    bet += betToAdd;
-                }
-
-                bool doWeHaveSameColour = BetBecauseOfSameColour(cardsWeGet, out betToAdd);
-                if (doWeHaveSameColour)
-                {
-                    bet += betToAdd;
-                }
-
-                bet = BetBecauseOfHighCard(card.Rank, bet);
-
-                if ((doWeHavePair || doWeHaveSameColour )&&
-                    bet < poker.CurrentBuyIn)
-                {
-                    bet = poker.CurrentBuyIn;
-                }
-
-                bet = DoBluffing(bet);
+                Console.WriteLine("");
+                bet += betToAdd;
             }
+
+            bool doWeHaveSameColour = BetBecauseOfSameColour(cardsWeGet, out betToAdd);
+            if (doWeHaveSameColour)
+            {
+                bet += betToAdd;
+            }
+
+            bet = BetBecauseOfHighCard(cardsWeGet, bet);
+
+            int numberOfHighCards = GetNumberOffHighCards(cardsWeGet);
+
+            if ((doWeHavePair || doWeHaveSameColour) &&
+                 bet < poker.CurrentBuyIn)
+            {
+                bet = poker.CurrentBuyIn;
+            }
+
+            bet = DoBluffing(bet);
+
 
 
             return bet;
+        }
+
+        private static void PrintCards(List<ICards> fullcards)
+        {
+            foreach (var card in fullcards)
+            {
+                Console.WriteLine("Card we get: " + card.Rank + "/" + card.Suit);
+            }
         }
 
         private int DoBluffing(int bet)
@@ -123,17 +131,34 @@ namespace Nancy.Simple
         }
 
 
-        private int BetBecauseOfHighCard(Cards card, int bet)
+        private int BetBecauseOfHighCard(List<ICards> cardsWeGet, int bet)
         {
-            if (betToAdd.ContainsKey(card))
+            foreach (var card in cardsWeGet)
             {
-                Console.WriteLine("Found card" + card);
-                bet += betToAdd[card];
-                Console.WriteLine("Bet increased to" + bet);
+                if (betToAdd.ContainsKey(card.Rank))
+                {
+                    Console.WriteLine("Found card" + card);
+                    bet += betToAdd[card.Rank];
+                    Console.WriteLine("Bet increased to" + bet);
+                }
             }
             return bet;
         }
 
+        private int GetNumberOffHighCards(List<ICards> cardsWeGet)
+        {
+            int numberOfHighCards = 0;
+
+            foreach (var card in cardsWeGet)
+            {
+                if (betToAdd.ContainsKey(card.Rank))
+                {
+                    numberOfHighCards++;
+                }
+            }
+
+            return numberOfHighCards;
+        }
 
     }
 }
