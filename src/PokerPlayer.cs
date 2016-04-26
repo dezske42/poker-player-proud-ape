@@ -14,13 +14,15 @@ namespace Nancy.Simple
             {
                 Poker poker = new Poker(gameState);
 
-	            Console.WriteLine("test beginn");
+	            Log("Test begin");
                 dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
 
                 foreach (var player in stuff.players)
                 {
                     Log(player.name);
                 }
+
+                Log("Test end");
             }
             catch (Exception ex)
             {
