@@ -12,6 +12,7 @@ namespace Nancy.Simple
 	    {
 	        try
 	        {
+	            Console.WriteLine("test beginn");
                 dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
 
 	            Console.WriteLine("Test: " + stuff.tournament_id);
