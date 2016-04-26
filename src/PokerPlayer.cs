@@ -37,8 +37,9 @@ namespace Nancy.Simple
             Dictionary<Cards, int> betToAdd = new Dictionary<Cards, int>();
             betToAdd.Add(Cards.Ace, 15);
             betToAdd.Add(Cards.King, 10);
+            betToAdd.Add(Cards.Queen, 10);
+            betToAdd.Add(Cards.Jack, 10);
             
-
             foreach (var card in cards)
             {
                 if (betToAdd.ContainsKey(card))
