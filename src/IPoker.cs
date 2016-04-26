@@ -25,5 +25,7 @@ namespace Nancy.Simple
         IList<ICards> GetOurCardsWithCommunityCards { get; } 
 
         bool CommunityMode { get; }
+
+        string AllCardsJSon { get; }
     }
 }

@@ -172,6 +172,33 @@ namespace Nancy.Simple
             }
         }
 
+        public string AllCardsJSon
+        {
+            get
+            {
+                List<string> allCards = new List<string>();
+
+                dynamic player = GetOurPlayer();
+
+                if (player != null)
+                {
+                    foreach (dynamic card in player.hole_cards)
+                    {
+                        allCards.Add(card.ToString());
+                    }
+                }
+
+                dynamic stuff = JsonConvert.DeserializeObject(GameState.ToString());
+
+                foreach (dynamic card in stuff.community_cards)
+                {
+                    allCards.Add(card.ToString());
+                }
+
+                return string.Format("[ {0} ]", string.Join(",", allCards));
+            }
+        }
+
         private IList<ICards> CollectCards(dynamic cardList)
         {
             List<ICards> cards = new List<ICards>();
