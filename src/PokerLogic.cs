@@ -21,8 +21,7 @@ namespace Nancy.Simple
             betToAdd.Add(Cards.Queen, 100);
             betToAdd.Add(Cards.Jack, 100);
         }
-
-
+       
 
         public int Play(JObject gameState)
         {
@@ -55,11 +54,29 @@ namespace Nancy.Simple
                 {
                     bet = poker.CurrentBuyIn;
                 }
-                
+
+                bet = DoBluffing(bet);
             }
 
 
             return bet;
+        }
+
+        private int DoBluffing(int bet)
+        {
+            Random rnd = new Random();
+            int number = rnd.Next(0, 100);
+
+            int betToReturn = bet;
+            if (number < 15)
+            {
+                double calcBet = bet*1.15;
+                Console.WriteLine("Calculated bet" + calcBet);
+
+                betToReturn = (int) calcBet;
+            }
+
+            return betToReturn;
         }
 
         private static bool BetBecauseOfPair(List<ICards> cardsWeGet, out int betToAdd)
