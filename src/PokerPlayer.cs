@@ -13,6 +13,7 @@ namespace Nancy.Simple
             try
             {
                 Poker poker = new Poker(gameState);
+                var cards = poker.GetOurCards();
 
                 return FirstVersion(gameState);
                 //SecondVersion(gameState);
@@ -54,9 +55,9 @@ namespace Nancy.Simple
 			//TODO: Use this method to showdown
 		}
 
-        private static void Log(string log)
+        public static void Log(object log)
         {
-            Console.WriteLine("[ProudApes] {0}", log);
+            Console.WriteLine("[ProudApes] " + log.ToString());
         }
 	}
 }
