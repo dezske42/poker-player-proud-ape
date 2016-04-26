@@ -74,6 +74,7 @@
     <Compile Include="MainModule.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Poker.cs" />
+    <Compile Include="PokerLogic.cs" />
     <Compile Include="PokerPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
