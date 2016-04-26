@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Nancy.Simple
 {
-    using System;
-    using System.Runtime.Remoting.Messaging;
-
     public static class PokerPlayer
 	{
 		public static readonly string VERSION = "Default C# folding player";
@@ -13,21 +12,19 @@ namespace Nancy.Simple
 		{
             try
             {
-                //foreach (JProperty property in gameState.Properties())
-                //{
-                //    if (property.Name == "players")
-                //    {
-                //        Log(property.Name);
-                //    }
-                //}
+	            Console.WriteLine("test beginn");
+                dynamic stuff = JsonConvert.DeserializeObject(gameState.ToString());
+
+	            Console.WriteLine("Test: " + stuff.tournament_id);
             }
             catch (Exception)
             {
-                // fallback
+
                 return 50;
             }
 
-            return 50;
+
+            return 1;
 		}
 
 		public static void ShowDown(JObject gameState)
