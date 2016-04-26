@@ -13,7 +13,9 @@ namespace Nancy.Simple
         private readonly int HighPairBetAdded;
         private readonly int BettToAddBecauseOfPair;
         private readonly int BaseBet;
-        
+
+        private int alreadyBetted = 0;
+
         public string GameId { get; private set; }
 
         public PokerLogic(Poker poker)
@@ -79,6 +81,11 @@ namespace Nancy.Simple
             }
 
             bet = DoBluffing(bet);
+
+            alreadyBetted += bet;
+            Console.WriteLine("Already betted: " + alreadyBetted);
+
+
             return bet;
         }
 
