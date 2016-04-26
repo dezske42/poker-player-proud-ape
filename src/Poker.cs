@@ -41,6 +41,54 @@ namespace Nancy.Simple
                         {
                             cards.Add(Cards.King);
                         }
+                        else if (rank == "J")
+                        {
+                            cards.Add(Cards.Jack);
+                        }
+                        else if (rank == "Q")
+                        {
+                            cards.Add(Cards.Queen);
+                        }
+                        else if (rank == "2")
+                        {
+                            cards.Add(Cards.N2);
+                        }
+                        else if (rank == "3")
+                        {
+                            cards.Add(Cards.N3);
+                        }
+                        else if (rank == "4")
+                        {
+                            cards.Add(Cards.N4);
+                        }
+                        else if (rank == "5")
+                        {
+                            cards.Add(Cards.N5);
+                        }
+                        else if (rank == "6")
+                        {
+                            cards.Add(Cards.N6);
+                        }
+                        else if (rank == "7")
+                        {
+                            cards.Add(Cards.N7);
+                        }
+                        else if (rank == "8")
+                        {
+                            cards.Add(Cards.N8);
+                        }
+                        else if (rank == "9")
+                        {
+                            cards.Add(Cards.N9);
+                        }
+                        else if (rank == "10")
+                        {
+                            cards.Add(Cards.N10);
+                        }
+                        else
+                        {
+                            cards.Add(Cards.Unknown);
+                        }
                     }
                 }
             }
